@@ -4,17 +4,6 @@ A JetBrains IDE plugin that simplifies the management of HashiCorp Vault tokens 
 authentication.
 
 <div>
-  <style>
-    @media (prefers-color-scheme: dark) {
-      .light-icon { display: none; }
-      .dark-icon { display: inline; }
-    }
-    @media (prefers-color-scheme: light) {
-      .light-icon { display: inline; }
-      .dark-icon { display: none; }
-    }
-  </style>
-
   <img class="light-icon" src="./src/main/resources/META-INF/pluginIcon.svg" alt="Vault Token Manager Icon" width="100" />
   <img class="dark-icon" src="./src/main/resources/META-INF/pluginIcon_dark.svg" alt="Vault Token Manager Icon Dark" width="100" />
 </div>
