@@ -1,0 +1,40 @@
+<!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
+<idea-plugin>
+    <!-- Unique identifier of the plugin. It should be FQN. It cannot be changed between the plugin versions. -->
+    <id>org.vaulttokenmanager</id>
+
+    <!-- Public plugin name should be written in Title Case.
+         Guidelines: https://plugins.jetbrains.com/docs/marketplace/plugin-overview-page.html#plugin-name -->
+    <name>Vault Token Manager</name>
+
+    <!-- A displayed Vendor name or Organization ID displayed on the Plugins Page. -->
+    <vendor url="https://besart.vercel.app">Besart Memeti</vendor>
+
+    <!-- Description of the plugin displayed on the Plugin Page and IDE Plugin Manager.
+         Guidelines: https://plugins.jetbrains.com/docs/marketplace/plugin-overview-page.html#plugin-description -->
+    <description><![CDATA[
+        Vault Token Manager simplifies the management of HashiCorp Vault tokens generated via OpenID Connect (OIDC) authentication. This plugin allows developers to:
+        <ul>
+            <li>Generate and renew Vault tokens without leaving the IDE</li>
+            <li>View token expiration status and metadata</li>
+            <li>Configure OIDC address and expiration settings</li>
+        </ul>
+        Perfect for teams using Vault for secrets management who need streamlined access to secure resources.
+    ]]></description>
+
+    <!-- Product and plugin compatibility requirements.
+         Read more: https://plugins.jetbrains.com/docs/intellij/plugin-compatibility.html -->
+    <depends>com.intellij.modules.platform</depends>
+
+    <!-- Extension points defined by the plugin.
+         Read more: https://plugins.jetbrains.com/docs/intellij/plugin-extension-points.html -->
+    <extensions defaultExtensionNs="com.intellij">
+        <toolWindow id="Vault Token Manager"
+                    anchor="right"
+                    icon="/META-INF/pluginIcon.svg"
+                    factoryClass="org.vaulttokenmanager.TokenToolWindowFactory"/>
+        <notificationGroup id="Vault Token Notifications"
+                           displayType="BALLOON"
+                           toolWindowId="Vault Token Manager"/>
+    </extensions>
+</idea-plugin>

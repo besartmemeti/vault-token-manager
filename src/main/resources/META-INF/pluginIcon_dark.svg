@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80">
+    <defs>
+        <style>
+            .security-icon{fill:#ffffff;transform-origin:center;}
+            .token-outline{fill:none;stroke:#ffffff;stroke-width:1.5;transform-origin:center;}
+            .token-detail{fill:none;stroke:#ffffff;stroke-width:1;transform-origin:center;}
+        </style>
+    </defs>
+
+    <title>Token</title>
+
+    <!-- Token base -->
+    <g id="token">
+        <!-- Top bottom -->
+        <path class="token-outline" d="M 10,45 A 30,20 0 0,0 70,45"/>
+        <ellipse class="token-outline" cx="40" cy="35" rx="30" ry="20"/>
+
+        <!-- Sides -->
+        <line class="token-outline" x1="10" y1="35" x2="10" y2="45"/>
+        <line class="token-outline" x1="70" y1="35" x2="70" y2="45"/>
+
+        <!-- Details -->
+        <line class="token-outline" x1="14" y1="45" x2="14" y2="55"/>
+        <line class="token-outline" x1="21.5" y1="51" x2="21.5" y2="61"/>
+        <line class="token-outline" x1="30" y1="53.5" x2="30" y2="63.5"/>
+        <line class="token-outline" x1="40" y1="54.5" x2="40" y2="65"/>
+        <line class="token-outline" x1="50" y1="53.5" x2="50" y2="63.5"/>
+        <line class="token-outline" x1="58.5" y1="51" x2="58.5" y2="61"/>
+        <line class="token-outline" x1="66" y1="45" x2="66" y2="55"/>
+
+        <ellipse class="token-detail" cx="40" cy="35" rx="22.5" ry="15"/>
+    </g>
+
+    <!-- Security Shield Symbol -->
+    <g transform="translate(40, 37) scale(0.25, 0.18)">
+        <path class="security-icon"
+              d="M-35,-60 L35,-60 L40,0 C40,30 0,50 0,50 C0,50 -40,30 -40,0 Z"/>
+        <path class="security-icon" opacity="0.3"
+              d="M-20,-40 L20,-40 L20,0 C20,15 0,30 0,30 C0,30 -20,15 -20,0 Z"/>
+        <path class="security-icon"
+              d="M0,-20 L8,-5 L25,-5 L15,5 L20,20 L0,12 L-20,20 L-15,5 L-25,-5 L-8,-5 Z"/>
+    </g>
+</svg>
