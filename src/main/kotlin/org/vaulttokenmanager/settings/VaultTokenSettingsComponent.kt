@@ -7,6 +7,8 @@ import com.intellij.ui.components.JBLabel
 import com.intellij.ui.components.JBTextField
 import com.intellij.util.ui.FormBuilder
 import com.intellij.util.ui.JBUI
+import java.io.File
+import java.net.URL
 import javax.swing.JComponent
 import javax.swing.JPanel
 import javax.swing.text.AttributeSet
@@ -82,6 +84,66 @@ class VaultTokenSettingsComponent {
         set(value) {
             vaultExecutableField.text = value
         }
+
+    /**
+     * Validates all settings fields and returns a map of field validation errors, if any.
+     * @return Map of field names to error messages, empty if all fields are valid
+     */
+    fun validateSettings(): Map<String, String> {
+        val errors = mutableMapOf<String, String>()
+
+        // Validate vault address (should be a valid URL or hostname)
+        val address = vaultAddressValue.trim()
+        if (address.isEmpty()) {
+            errors["vaultAddress"] = "Vault address cannot be empty"
+        } else {
+            try {
+                URL(address)
+            } catch (e: Exception) {
+                // If it's not a valid URL, check if it might be a hostname
+                if (!address.matches(Regex("^[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(\\.[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$"))) {
+                    errors["vaultAddress"] = "Invalid vault address format"
+                }
+            }
+        }
+
+        // Validate token validity hours (should be a positive number)
+        val validityHours = tokenValidityHoursValue.trim()
+        if (validityHours.isEmpty()) {
+            errors["validityHours"] = "Token validity cannot be empty"
+        } else {
+            val hours = validityHours.toLongOrNull()
+            if (hours == null || hours <= 0) {
+                errors["validityHours"] = "Token validity must be a positive number"
+            }
+        }
+
+        // Validate login timeout seconds (should be a positive number)
+        val timeout = loginTimeoutValue.trim()
+        if (timeout.isEmpty()) {
+            errors["loginTimeout"] = "Login timeout cannot be empty"
+        } else {
+            val seconds = timeout.toLongOrNull()
+            if (seconds == null || seconds <= 0) {
+                errors["loginTimeout"] = "Login timeout must be a positive number"
+            }
+        }
+
+        // Validate vault executable path (should be a valid executable file)
+        val execPath = vaultExecutablePath.trim()
+        if (execPath.isEmpty()) {
+            errors["vaultExecutable"] = "Vault executable path cannot be empty"
+        } else {
+            val file = File(execPath)
+            if (!file.exists()) {
+                errors["vaultExecutable"] = "Vault executable file not found"
+            } else if (!file.canExecute() || !file.isFile) {
+                errors["vaultExecutable"] = "Vault executable does not have execution permissions"
+            }
+        }
+
+        return errors
+    }
 
     // Public property to access the panel
     val panel: JComponent

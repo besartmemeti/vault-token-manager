@@ -1,6 +1,7 @@
 package org.vaulttokenmanager.settings
 
 import com.intellij.openapi.options.Configurable
+import com.intellij.openapi.options.ConfigurationException
 import org.vaulttokenmanager.services.ConfigService
 import javax.swing.JComponent
 
@@ -23,22 +24,41 @@ class VaultTokenSettingsConfigurable : Configurable {
 
         return settingsComponent?.let {
             it.vaultAddressValue != settings.vaultAddress ||
-            it.tokenValidityHoursValue.toLongOrNull() != settings.tokenValidityHours ||
-            it.loginTimeoutValue.toLongOrNull() != settings.loginTimeoutSeconds ||
-            it.vaultExecutablePath != settings.vaultExecutablePath
+                    it.tokenValidityHoursValue.toLongOrNull() != settings.tokenValidityHours ||
+                    it.loginTimeoutValue.toLongOrNull() != settings.loginTimeoutSeconds ||
+                    it.vaultExecutablePath != settings.vaultExecutablePath
         } ?: false
     }
 
+    /**
+     * Validates settings before applying them.
+     * Throws ConfigurationException with appropriate error message if validation fails.
+     */
+    @Throws(ConfigurationException::class)
     override fun apply() {
-        val settings = ConfigService.getInstance()
-        settingsComponent?.let {
-            settings.updateSettings(
-                it.vaultAddressValue,
-                it.tokenValidityHoursValue.toLongOrNull() ?: 12L,
-                it.loginTimeoutValue.toLongOrNull() ?: 60L,
-                it.vaultExecutablePath
-            )
+        val component = settingsComponent ?: return
+
+        // Validate settings before applying
+        val validationErrors = component.validateSettings()
+        if (validationErrors.isNotEmpty()) {
+            // Create an error message from all validation errors
+            val errorMessage = buildString {
+                append("Cannot apply settings due to validation errors:")
+                validationErrors.values.forEach { error ->
+                    append("\n• $error")
+                }
+            }
+            throw ConfigurationException(errorMessage)
         }
+
+        // All validations passed, apply settings
+        val settings = ConfigService.getInstance()
+        settings.updateSettings(
+            component.vaultAddressValue,
+            component.tokenValidityHoursValue.toLongOrNull() ?: 12L,
+            component.loginTimeoutValue.toLongOrNull() ?: 60L,
+            component.vaultExecutablePath
+        )
     }
 
     override fun reset() {
