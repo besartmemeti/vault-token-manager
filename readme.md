@@ -3,7 +3,10 @@
 A JetBrains IDE plugin that simplifies the management of HashiCorp Vault tokens generated via OpenID Connect (OIDC)
 authentication.
 
-<img class="light-icon" src="./src/main/resources/META-INF/pluginIcon.svg" alt="Vault Token Manager Icon" width="100" />
+<div>
+  <img class="light-icon" src="./src/main/resources/META-INF/pluginIcon.svg" alt="Vault Token Manager Icon" width="100" />
+  <img class="dark-icon" src="./src/main/resources/META-INF/pluginIcon_dark.svg" alt="Vault Token Manager Icon Dark" width="100" />
+</div>
 
 ## Features
 
