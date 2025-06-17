@@ -36,5 +36,9 @@
         <notificationGroup id="Vault Token Notifications"
                            displayType="BALLOON"
                            toolWindowId="Vault Token Manager"/>
+        <applicationConfigurable
+                    id="org.vaulttokenmanager.settings.VaultTokenSettingsConfigurable"
+                    instance="org.vaulttokenmanager.settings.VaultTokenSettingsConfigurable"
+                    displayName="Vault Token Manager"/>
     </extensions>
 </idea-plugin>
